@@ -4,7 +4,7 @@ import { Ping } from '../controllers';
 export default (router: Router) => {
   const routes = Router();
   
-  routes.get('/ping', Ping.test);
+  routes.use('/ping', Ping.test);
   
   router.use(routes);
 };
