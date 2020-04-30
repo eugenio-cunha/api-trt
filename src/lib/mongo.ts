@@ -1,6 +1,6 @@
 import { mongodbUrl } from '../config';
 import { Document } from '../interfaces';
-import { connect, MongoClient } from 'mongodb';
+import { connect, MongoClient, ObjectID } from 'mongodb';
 
 /**
  * @class Mongo
@@ -85,14 +85,35 @@ class Mongo {
    *
    * @returns {Promise<Null | Document>} retorna um document ou vazio caso não exista
    */
-  public async find(database: string, collection: string, key: string, value: string): Promise<null | Document> {
+  public async find(database: string, collection: string, id: string): Promise<any> {
     const db = await this.getDB(database);
 
     const result = await db.collection(collection).findOne(
-      { [key]: { $eq: value } }, { projection: { _id: 0 } }
+      { _id: { $eq: new ObjectID(id) } }, { projection: { _id: 0 } }
     );
 
     return result || null;
+  }
+
+  /**
+   * @description Executa uma agregação
+   *
+   * @param {String} database nome da base dados
+   * @param {String} collection nome da coleção
+   * @param {String} pipeline pipeline da agregação
+   *
+   * @returns {Promise<Null | Document>} retorna um document ou vazio caso não exista
+   */
+  public async aggregate(database: string, collection: string, pipeline: any[]): Promise<any> {
+    const db = await this.getDB(database);
+
+    const result = await db.collection(collection).aggregate(pipeline).toArray();
+
+    return result || null;
+  }
+
+  public id(value: string): ObjectID {
+    return new ObjectID(value);
   }
 }
 

@@ -1,5 +1,5 @@
-import Ping from './pingRoutes';
-import Trt3 from './trt3Routes';
+import Ping from './ping';
+import Trt from './target';
 import { Router } from 'express';
 
 export default (): Router => {
@@ -7,7 +7,7 @@ export default (): Router => {
   
   Ping(router);
 
-  Trt3(router);
+  Trt(router);
 
   return router;
 }

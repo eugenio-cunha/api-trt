@@ -2,7 +2,7 @@ import cors from 'cors';
 import { routes } from './api';
 import express, { json, urlencoded, Application } from 'express';
 
-class App {
+export default class App {
 
   public express: Application;
 
@@ -11,6 +11,10 @@ class App {
     this.express.disable('x-powered-by');
     this.middlewares();
     this.routes();
+  }
+
+  public listen(port: number, callback: () => void) {
+    this.express.listen(port, callback);
   }
 
   private middlewares(): void {
@@ -23,7 +27,3 @@ class App {
     this.express.use('/api/', routes());
   }
 }
-
-const { express: app } = new App();
-
-export default app;
