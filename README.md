@@ -1,20 +1,22 @@
-# TRT-3
+# TRT-API
 
 Web data miner bot
 
-### Endpoints
+### REST Endpoints
 
-* {ALL} `/api/ping`
-* {POST} `/api/trt3/request`
-* {POST} `/api/trt3/response`
+* {GET}  `/api/ping`
+* {POST} `/api/trt3/search`
+* {GET}  `/api/trt3/search?id=123456789`
 
+### Estrutura do projeto
 ```
-src
-│   app.js          # Ponto de entrada do app
-└───api             # Express rotas controles para todos endpoints do app
-└───environments    # Configurações dos ambientes do app
-└───interfaces      # Interfaces comuns 
-└───lib             # Biblioteca
-└───services        # Logica de negocio do app
-└───worker          # Trabalhador 
+    src
+       │
+       └───api             # Rotas e controles de todos endpoints
+       └───config          # Configurações dos ambientes
+       └───interfaces      # Interfaces comuns
+       └───lib             # Bibliotecas
+       └───services        # Logica de negocios
+       └───app.js          # App express
+       └───server.js       # Ponto de entrada do app
 ```
