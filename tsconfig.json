@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
-    "removeComments": true
+    "removeComments": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src/**/*"
