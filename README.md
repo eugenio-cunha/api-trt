@@ -5,5 +5,5 @@ Web data miner bot
 ### Endpoints
 
 * {ALL} `/api/ping`
-* {POST} `/api/search/request`
-* {POST} `/api/search/response`
+* {POST} `/api/trt3/request`
+* {POST} `/api/trt3/response`

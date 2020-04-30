@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "TDD",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+              "--require", "ts-node/register",
+              "${workspaceFolder}/test/**/*.spec.ts", "--exit"
+            ],
+            "env": {
+              "NODE_ENV": "debug",
+              "HTTP_PORT": "3000",
+              "REDIS_URL": "redis://:Aa1234@0.0.0.0:6379",
+              "MONGODB_URL": "mongodb://127.0.0.1:27017/{db}",
+            },
+            "internalConsoleOptions": "openOnSessionStart"
+          }
+    ]
+}
