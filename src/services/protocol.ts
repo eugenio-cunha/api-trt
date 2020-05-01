@@ -1,4 +1,4 @@
-import { Mongo } from '../lib';
+import { Mongo, Redis } from '../lib';
 import { Document } from '../interfaces';
 
 export default class Protocol {
@@ -6,11 +6,11 @@ export default class Protocol {
   public static async register(target: string, code: string, instance: number): Promise<Document> {
     const request = {
       status: 'waiting',
-      parameters: { target, code, instance },
       start: new Date()
-    }
+    };
 
     const id = await Mongo.insert(target, 'request', request);
+    await Redis.publish(target, { id, code, instance });
     return { id, ...request };
   }
 
@@ -23,7 +23,7 @@ export default class Protocol {
     if (!doc) {
       result = { id, status: 'not found' };
     } else if (doc.status === 'done') {
-      result =  { ...doc, data: await this.get(target, id) }
+      result = { ...doc, data: await this.get(target, id) }
     } else {
       result = doc;
     }
