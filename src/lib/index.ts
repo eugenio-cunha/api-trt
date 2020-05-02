@@ -1,2 +1,2 @@
-export { default as Redis } from './redis';
 export { default as Mongo } from './mongo';
+export { default as Notification } from './notification';

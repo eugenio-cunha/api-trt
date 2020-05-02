@@ -1,5 +1,5 @@
-import { Mongo, Redis } from '../lib';
 import { Document } from '../interfaces';
+import { Mongo, Notification } from '../lib';
 
 export default class Protocol {
 
@@ -10,7 +10,9 @@ export default class Protocol {
     };
 
     const id = await Mongo.insert(target, 'request', request);
-    await Redis.publish(target, { id, code, instance });
+    
+    Notification.send(target, { id, code, instance });
+    
     return { id, ...request };
   }
 

@@ -20,3 +20,7 @@ Web data miner bot
        └───app.js          # App express
        └───server.js       # Ponto de entrada do app
 ```
+
+```sh
+curl -X POST -H "content-type: application/json" --data '{ "code": "12345", "instance": 1 }' http://127.0.0.1:3000/api/trt3/search
+```

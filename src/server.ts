@@ -1,6 +1,6 @@
 import App from './app';
-import { port, host, env } from './config';
+import { httpPort, httpHost, env } from './config';
 
 const app = new App();
 
-app.listen(port, () => console.info(`(${env}) http://${host}:${port}`));
+app.listen(httpPort, () => console.info(`(${env}) http://${httpHost}:${httpPort}`));
