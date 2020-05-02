@@ -1,26 +1,18 @@
-import { Document } from '../interfaces';
+import { Doc } from '../interfaces';
 import { Mongo, Notification } from '../lib';
 
 export default class Protocol {
 
-  public static async register(target: string, code: string, instance: number): Promise<Document> {
-    const request = {
-      status: 'waiting',
-      start: new Date()
-    };
-
+  public static async register(target: string, code: string, instance: number): Promise<Doc> {
+    const request = { status: 'waiting', code, instance, start: new Date() };
     const id = await Mongo.insert(target, 'request', request);
-    
     Notification.send(target, { id, code, instance });
-    
     return { id, ...request };
   }
 
-  public static async search(target: string, id: string): Promise<Document | null> {
-
+  public static async search(target: string, id: string): Promise<Doc | null> {
+    let result: Doc;
     const doc = await Mongo.find(target, 'request', id);
-
-    let result: Document;
 
     if (!doc) {
       result = { id, status: 'not found' };
@@ -33,17 +25,26 @@ export default class Protocol {
     return result;
   }
 
-  private static async get(target: string, id: string): Promise<Document> {
+  private static async get(target: string, id: string): Promise<Doc> {
     const pipeline = [
       {
         '$match': {
-          'request': Mongo.id(id)
+          'request': Mongo.objectId(id)
         }
       }, {
         '$project': {
           '_id': 0,
-          'numero': '$JSON.numero',
-          'itens': '$JSON.itensProcesso'
+          'numero': 1,
+          'itens': {
+            '$map': {
+              'input': '$itensProcesso',
+              'as': 'item',
+              'in': {
+                'titulo': '$$item.titulo',
+                'data': '$$item.data'
+              }
+            }
+          }
         }
       }
     ];
@@ -52,3 +53,4 @@ export default class Protocol {
     return doc;
   }
 }
+
