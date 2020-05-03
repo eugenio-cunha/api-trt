@@ -8,10 +8,10 @@
 ```env
 NODE_ENV=development                           (ambiente da aplicação)
 SOCKET_PORT=9018                               (porta do socket que o robô vai escutar)
-MONGODB_URL=mongodb://127.0.0.1:27017/${db}    (url de conexão com MongoDB) 
+MONGODB_HOST=127.0.0.1:                        (host de conexão com MongoDB) 
+MONGODB_PORT=27017                             (porta de conexão com MongoDB) 
 HTTP_PORT=9000                                 (porta http da api)
 HTTP_HOST=127.0.0.1                            (host da api para executar os testes de unidades)
-
 ```
 
 ### Diagrama
